@@ -1,0 +1,1574 @@
+[
+    {
+        "id": "57c2a8b4317a7700",
+        "type": "tab",
+        "label": "MQTT Autorefresh",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5b253dbb1d6e7262",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "snap/base64",
+        "topic": "cameras/120/status/task/photoseries/snap/base64",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "9c7827439edaa599"
+            ]
+        ]
+    },
+    {
+        "id": "60a151dc7d2c537d",
+        "type": "ui_template",
+        "z": "57c2a8b4317a7700",
+        "group": "b323b37d0216b89b",
+        "name": "Live Video",
+        "order": 2,
+        "width": "12",
+        "height": "7",
+        "format": "<div>\n    <img src={{msg.payload}} style='max-width: 640px;' />\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 390,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c7827439edaa599",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "img src",
+        "func": "var base = msg.payload.val\n\nmsg.payload = 'data:image/jpg;base64, ' + base\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 40,
+        "wires": [
+            [
+                "60a151dc7d2c537d"
+            ]
+        ]
+    },
+    {
+        "id": "d3aa1837ac6d724c",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Current Brightness",
+        "topic": "cameras/115/status/features/nightvision/currentbrightness",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "2448f6b23f0b3ae9"
+            ]
+        ]
+    },
+    {
+        "id": "e0b63445ccf19b91",
+        "type": "ui_chart",
+        "z": "57c2a8b4317a7700",
+        "name": "Brightness",
+        "group": "d8d6951e47cec001",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2ec27e",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 430,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2448f6b23f0b3ae9",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Get Value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "e0b63445ccf19b91"
+            ]
+        ]
+    },
+    {
+        "id": "90831dfe45591a73",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "4297219575b64cc0",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Firmware",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f39e7ff3df3619bc",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Available",
+        "topic": "cameras/115/status/system/update/available",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 100,
+        "y": 260,
+        "wires": [
+            [
+                "6ee824e336ee627c"
+            ]
+        ]
+    },
+    {
+        "id": "a0eea02551e0da4a",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Progress",
+        "topic": "cameras/115/status/system/update/updateinfo",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "b22ae9122faf0916"
+            ]
+        ]
+    },
+    {
+        "id": "6ee824e336ee627c",
+        "type": "switch",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "property": "payload.val",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 260,
+        "wires": [
+            [
+                "d9454612a0898403"
+            ],
+            [
+                "877864551b30ae32"
+            ]
+        ]
+    },
+    {
+        "id": "d9454612a0898403",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Update Available",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "90831dfe45591a73"
+            ]
+        ]
+    },
+    {
+        "id": "877864551b30ae32",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "No Update available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "No Update available",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "90831dfe45591a73"
+            ]
+        ]
+    },
+    {
+        "id": "e6d1ccade8214ec3",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "73795638ae70ecae",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Update Progress",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 430,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b22ae9122faf0916",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Get Value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 320,
+        "wires": [
+            [
+                "e6d1ccade8214ec3"
+            ]
+        ]
+    },
+    {
+        "id": "9a41e23852e6fd1f",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "snap/base64",
+        "topic": "cameras/115/status/task/photoseries/snap/base64",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "c8f2a2d4335abbdb"
+            ]
+        ]
+    },
+    {
+        "id": "04a64baecd16e247",
+        "type": "ui_template",
+        "z": "57c2a8b4317a7700",
+        "group": "5163ecd2b499511a",
+        "name": "Live Video",
+        "order": 1,
+        "width": "12",
+        "height": "7",
+        "format": "<div>\n    <img src={{msg.payload}} style='max-width: 640px;' />\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 390,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c8f2a2d4335abbdb",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "img src",
+        "func": "var base = msg.payload.val\n\nmsg.payload = 'data:image/jpg;base64, ' + base\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "04a64baecd16e247"
+            ]
+        ]
+    },
+    {
+        "id": "503c086ddb8ad04b",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Current Brightness",
+        "topic": "cameras/120/status/features/nightvision/currentbrightness",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "84e52999747cced2"
+            ]
+        ]
+    },
+    {
+        "id": "be3ca46874ce6d66",
+        "type": "ui_chart",
+        "z": "57c2a8b4317a7700",
+        "name": "Brightness",
+        "group": "1836ec3d2c7e9099",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2ec27e",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 430,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84e52999747cced2",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Get Value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "be3ca46874ce6d66"
+            ]
+        ]
+    },
+    {
+        "id": "7c41645a3342a5e2",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "9434cacceef642a3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Firmware",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 600,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "3f6aeb79e30335fc",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Available",
+        "topic": "cameras/120/status/system/update/available",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 100,
+        "y": 400,
+        "wires": [
+            [
+                "5decdefe196c7275"
+            ]
+        ]
+    },
+    {
+        "id": "747c8e0ed1d79ac5",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Progress",
+        "topic": "cameras/120/status/system/update/updateinfo",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 100,
+        "y": 460,
+        "wires": [
+            [
+                "f3c287b481989d25"
+            ]
+        ]
+    },
+    {
+        "id": "5decdefe196c7275",
+        "type": "switch",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "property": "payload.val",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "23860dc075059282"
+            ],
+            [
+                "520977229ae8c2db"
+            ]
+        ]
+    },
+    {
+        "id": "23860dc075059282",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Update Available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Update Available",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "7c41645a3342a5e2"
+            ]
+        ]
+    },
+    {
+        "id": "520977229ae8c2db",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "No Update available",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "No Update available",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "7c41645a3342a5e2"
+            ]
+        ]
+    },
+    {
+        "id": "e8bc91a6c7f0717d",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "e9ba98be2add58f2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Update Progress",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 430,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f3c287b481989d25",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "Get Value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 460,
+        "wires": [
+            [
+                "e8bc91a6c7f0717d"
+            ]
+        ]
+    },
+    {
+        "id": "42ee377a8a8629d9",
+        "type": "mqtt out",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/115/system/update/now",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8c9bd856c466f9b0",
+        "x": 420,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "27147b4791d9c6ca",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/115/system/update/now'\nmsg.topic = topic;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 640,
+        "wires": [
+            [
+                "42ee377a8a8629d9"
+            ]
+        ]
+    },
+    {
+        "id": "4f09129d23b07a5e",
+        "type": "ui_button",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "group": "7e1e92b52812efd0",
+        "order": 3,
+        "width": "6",
+        "height": "2",
+        "passthru": false,
+        "label": "Update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"val\":\"1\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 640,
+        "wires": [
+            [
+                "27147b4791d9c6ca"
+            ]
+        ]
+    },
+    {
+        "id": "9ab506b359d8a366",
+        "type": "mqtt out",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/115/system/reboot/now",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8c9bd856c466f9b0",
+        "x": 410,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "2b4c890130eb8ba5",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/115/system/reboot/now'\nmsg.topic = topic;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 680,
+        "wires": [
+            [
+                "9ab506b359d8a366"
+            ]
+        ]
+    },
+    {
+        "id": "3f8c7632355bf6da",
+        "type": "ui_button",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "group": "7e1e92b52812efd0",
+        "order": 4,
+        "width": "6",
+        "height": "2",
+        "passthru": false,
+        "label": "Reboot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"val\":\"1\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 680,
+        "wires": [
+            [
+                "2b4c890130eb8ba5"
+            ]
+        ]
+    },
+    {
+        "id": "54998cdc8f9b8e3b",
+        "type": "mqtt out",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/120/system/update/now",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8c9bd856c466f9b0",
+        "x": 420,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "98142aa6b2401fcc",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/120/system/update/now'\nmsg.topic = topic;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 840,
+        "wires": [
+            [
+                "54998cdc8f9b8e3b"
+            ]
+        ]
+    },
+    {
+        "id": "157115c6aea0e353",
+        "type": "ui_button",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "group": "93c073d82b4b9afd",
+        "order": 3,
+        "width": "6",
+        "height": "2",
+        "passthru": false,
+        "label": "Update",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"val\":\"1\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 840,
+        "wires": [
+            [
+                "98142aa6b2401fcc"
+            ]
+        ]
+    },
+    {
+        "id": "86fe7ad9b4fa250e",
+        "type": "mqtt out",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/120/system/reboot/now",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8c9bd856c466f9b0",
+        "x": 410,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "4bc48bc40845c01d",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/120/system/reboot/now'\nmsg.topic = topic;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 880,
+        "wires": [
+            [
+                "86fe7ad9b4fa250e"
+            ]
+        ]
+    },
+    {
+        "id": "99617a7776e457ad",
+        "type": "ui_button",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "group": "93c073d82b4b9afd",
+        "order": 4,
+        "width": "6",
+        "height": "2",
+        "passthru": false,
+        "label": "Reboot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "{\"val\":\"1\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 80,
+        "y": 880,
+        "wires": [
+            [
+                "4bc48bc40845c01d"
+            ]
+        ]
+    },
+    {
+        "id": "73b2de5dbebc3e0b",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/115/status/system/update/current",
+        "topic": "",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": false,
+        "rh": 0,
+        "inputs": 1,
+        "x": 480,
+        "y": 540,
+        "wires": [
+            [
+                "de048247b9e609da"
+            ]
+        ]
+    },
+    {
+        "id": "310959dfca1477cb",
+        "type": "inject",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "action",
+                "v": "subscribe",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "cameras/118/status/multimedia/privacy/region1/enable",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 540,
+        "wires": [
+            [
+                "91a102853083e55e"
+            ]
+        ]
+    },
+    {
+        "id": "91a102853083e55e",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/115/status/system/update/current'\n\nmsg.topic = topic;\nmsg.action = \"subscribe\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 540,
+        "wires": [
+            [
+                "73b2de5dbebc3e0b"
+            ]
+        ]
+    },
+    {
+        "id": "de048247b9e609da",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 540,
+        "wires": [
+            [
+                "797e85506ca7499b"
+            ]
+        ]
+    },
+    {
+        "id": "797e85506ca7499b",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "7e1e92b52812efd0",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Current Version",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 860,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "4d54100c18dfd795",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/115/status/system/update/latest",
+        "topic": "",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": false,
+        "rh": 0,
+        "inputs": 1,
+        "x": 480,
+        "y": 580,
+        "wires": [
+            [
+                "39a9e98352bb5112"
+            ]
+        ]
+    },
+    {
+        "id": "644bf8b804bde3df",
+        "type": "inject",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "action",
+                "v": "subscribe",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "cameras/118/status/multimedia/privacy/region1/enable",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "56c20d95ba5df788"
+            ]
+        ]
+    },
+    {
+        "id": "56c20d95ba5df788",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/115/status/system/update/latest'\n\nmsg.topic = topic;\nmsg.action = \"subscribe\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 580,
+        "wires": [
+            [
+                "4d54100c18dfd795"
+            ]
+        ]
+    },
+    {
+        "id": "39a9e98352bb5112",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "39fcf26d7c56d416"
+            ]
+        ]
+    },
+    {
+        "id": "39fcf26d7c56d416",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "7e1e92b52812efd0",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Latest Version",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 860,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "22bf366ea563a066",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/120/status/system/update/current",
+        "topic": "",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": false,
+        "rh": 0,
+        "inputs": 1,
+        "x": 480,
+        "y": 740,
+        "wires": [
+            [
+                "88f3bffb1a767e3a"
+            ]
+        ]
+    },
+    {
+        "id": "ae7aee377c1d69b9",
+        "type": "inject",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "action",
+                "v": "subscribe",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "cameras/118/status/multimedia/privacy/region1/enable",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 740,
+        "wires": [
+            [
+                "ce13ec0ea84fbeac"
+            ]
+        ]
+    },
+    {
+        "id": "ce13ec0ea84fbeac",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/120/status/system/update/current'\n\nmsg.topic = topic;\nmsg.action = \"subscribe\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 740,
+        "wires": [
+            [
+                "22bf366ea563a066"
+            ]
+        ]
+    },
+    {
+        "id": "88f3bffb1a767e3a",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 740,
+        "wires": [
+            [
+                "6c0ec98d3c224cea"
+            ]
+        ]
+    },
+    {
+        "id": "6c0ec98d3c224cea",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "93c073d82b4b9afd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Current Version",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 860,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "8a2996e456256caa",
+        "type": "mqtt in",
+        "z": "57c2a8b4317a7700",
+        "name": "cameras/120/status/system/update/latest",
+        "topic": "",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "8c9bd856c466f9b0",
+        "nl": false,
+        "rap": false,
+        "rh": 0,
+        "inputs": 1,
+        "x": 480,
+        "y": 780,
+        "wires": [
+            [
+                "f0f562ff9e53a15c"
+            ]
+        ]
+    },
+    {
+        "id": "f4b738c92080b398",
+        "type": "inject",
+        "z": "57c2a8b4317a7700",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "action",
+                "v": "subscribe",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "cameras/118/status/multimedia/privacy/region1/enable",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 780,
+        "wires": [
+            [
+                "bec4e2ba2177ac95"
+            ]
+        ]
+    },
+    {
+        "id": "bec4e2ba2177ac95",
+        "type": "function",
+        "z": "57c2a8b4317a7700",
+        "name": "topic",
+        "func": "const topic = 'cameras/120/status/system/update/latest'\n\nmsg.topic = topic;\nmsg.action = \"subscribe\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 780,
+        "wires": [
+            [
+                "8a2996e456256caa"
+            ]
+        ]
+    },
+    {
+        "id": "f0f562ff9e53a15c",
+        "type": "change",
+        "z": "57c2a8b4317a7700",
+        "name": "value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.val",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 780,
+        "wires": [
+            [
+                "86272becfaf71ad9"
+            ]
+        ]
+    },
+    {
+        "id": "86272becfaf71ad9",
+        "type": "ui_text",
+        "z": "57c2a8b4317a7700",
+        "group": "93c073d82b4b9afd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Latest Version",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 860,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "8c9bd856c466f9b0",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.2.115",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b323b37d0216b89b",
+        "type": "ui_group",
+        "name": "MQTT Live Video 120",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d8d6951e47cec001",
+        "type": "ui_group",
+        "name": "Brightness 115",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4297219575b64cc0",
+        "type": "ui_group",
+        "name": "Update Available 115",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "73795638ae70ecae",
+        "type": "ui_group",
+        "name": "Update Progress 115",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5163ecd2b499511a",
+        "type": "ui_group",
+        "name": "MQTT Live Video 115",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1836ec3d2c7e9099",
+        "type": "ui_group",
+        "name": "Brightness 120",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 4,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9434cacceef642a3",
+        "type": "ui_group",
+        "name": "Update Available 120",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 8,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e9ba98be2add58f2",
+        "type": "ui_group",
+        "name": "Update Progress 120",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 7,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7e1e92b52812efd0",
+        "type": "ui_group",
+        "name": "Update 115",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 9,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "93c073d82b4b9afd",
+        "type": "ui_group",
+        "name": "Update 120",
+        "tab": "70bf2ac9b312ba7a",
+        "order": 10,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "70bf2ac9b312ba7a",
+        "type": "ui_tab",
+        "name": "Auto Refresh",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
