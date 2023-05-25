@@ -9,15 +9,13 @@
 Live video preview in form of a `base64` encoded snapshot and an refresh interval of 10s:
 
 
-![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_02.png)
+![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_02.webp)
 
 
 
 ### Camera Update
 
 Get notified of and perform firmware updates using the MQTT API:
-
-![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_03.png)
 
 
 ![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_03.gif)
@@ -30,4 +28,4 @@ Get notified of and perform firmware updates using the MQTT API:
 
 Import `node-red-flows.json` using the Node-RED import function:
 
-![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_01.png)
+![Auto-Refreshing MQTT Topics in Node-RED](https://github.com/mpolinowski/instar-mqtt-node-red-refresh-topics/blob/master/assets/WQHD_MQTTv5_Autorefresh_Node-RED_01.webp)
